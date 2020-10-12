@@ -15,7 +15,7 @@ class Screen2 extends React.Component {
       <div>
         <div className="container">
           <div className="row ">
-              <button onClick={this.handleRedirect}> Back </button>
+              <button className="btn btn-secondary" style={{marginBottom: 15}} onClick={this.handleRedirect}> Back </button>
             <div className="col-md-12 column">
               <table
                 className="table table-bordered table-hover"
