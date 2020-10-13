@@ -1,75 +1,55 @@
-import React from "react";
-import { render } from "react-dom";
-import history from '../lib/history';
+import React from 'react';
+import { useEffect } from 'react';
+import { Form } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { comment, name } from '../actions';
 
-class Screen2 extends React.Component {
-  state = {
-    
-  };
-  
-  handleRedirect = () => {
-      history.push("/screen1");
-  }
-  render() {
-    return (
-      <div>
-        <div className="container">
-          <div className="row ">
-              <button className="btn btn-secondary" style={{marginBottom: 15}} onClick={this.handleRedirect}> Back </button>
-            <div className="col-md-12 column">
-              <table
-                className="table table-bordered table-hover"
-                id="tab_logic"
-              >
-                <thead>
-                  <tr>
-                    <th className="text-center"> Name </th>
-                    <th className="text-center"> value </th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.props.rows.map((item, idx) => (
-                    <tr id="addr0" key={idx}>
-                      <td>
-                        <input
-                          type="text"
-                          name="name"
-                          value={this.props.rows[idx].name}
-                          onChange={this.props.handleChange(idx)}
-                          className="form-control"
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          name="value"
-                          value={this.props.rows[idx].value}
-                          onChange={this.props.handleChange(idx)}
-                          className="form-control"
-                        />
-                      </td>
-                      <td>
-                        <button
-                          className="btn btn-outline-danger btn-sm"
-                          onClick={this.props.handleRemoveSpecificRow(idx)}
-                        >
-                          delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <button onClick={this.props.handleAddRow} className="btn btn-primary">
-                Add Row
-              </button>
+const Detail = (props) => {
+    const commented = useSelector(state => state.comment);
+    const name1 = useSelector(state => state.name);
+    const screen2 = useSelector(state => state.screen);
+    const dispatch = useDispatch(); 
+
+    useEffect(() => {
+
+    }, [])
+
+    function handleChange(e) {
+        dispatch(comment(e.target.value)); 
+    }
+
+    function handleChange1(e) {
+        dispatch(name(e.target.value)); 
+    }
+    return(
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-4">
+                <img src ={screen2.poster} />
+                </div>
+                <div className="col-4">
+                <h3>Name :{screen2.name}</h3>
+                <h3>Year: {screen2.year}</h3>
+                </div>
+                <div className="col-12">
+                </div>
+                <div className="col-12">
+                    <h5>{name1}</h5>
+                    <p>{commented}</p>
+                    <Form>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="email" placeholder="firstname lastname" onChange={handleChange1} />
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlTextarea1">
+                            <Form.Label>Comment</Form.Label>
+                            <Form.Control as="textarea" rows="3" onChange={handleChange} />
+                        </Form.Group>
+                    </Form>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     );
-  }
 }
 
-export default Screen2;
+export default Detail;
